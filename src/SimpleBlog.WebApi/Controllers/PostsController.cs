@@ -1,16 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.WebApi.Models.Dtos.Requests;
 using SimpleBlog.WebApi.Models.Dtos.Responses;
-using System.Security.Claims;
+using SimpleBlog.WebApi.Utilities;
 
 namespace SimpleBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize(Policy = ConfigConstants.RequireApiScope)]
     public class PostsController : ControllerBase
     {
         private readonly IMediator _mediator;

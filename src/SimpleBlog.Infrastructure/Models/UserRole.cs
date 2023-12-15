@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SimpleBlog.Infrastructure.Models;
+﻿namespace SimpleBlog.Infrastructure.Models;
 
 public partial class UserRole
 {

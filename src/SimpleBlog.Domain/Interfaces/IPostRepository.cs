@@ -7,11 +7,11 @@ namespace SimpleBlog.Domain.Interfaces
     /// </summary>
     public interface IPostRepository
     {
-        Task CreatePostAsync(Post post);
+        Task<Post> CreatePostAsync(Post post);
 
         Task UpdatePostAsync(Post post);
 
-        Task DeletePostAsync(Post post);
+        Task<bool> DeletePostAsync(int id);
         
         Task<IEnumerable<Post>> GetAllPostsAsync(string userId = null);
 

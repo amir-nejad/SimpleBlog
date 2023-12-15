@@ -53,7 +53,7 @@ namespace SimpleBlog.Infrastructure.Data
         }
 
         // Create
-        public async Task CreatePostAsync(Domain.Entities.Post post)
+        public async Task<Domain.Entities.Post> CreatePostAsync(Domain.Entities.Post post)
         {
             var dbPost = _mapper.Map<Models.Post>(post);
 
@@ -66,22 +66,30 @@ namespace SimpleBlog.Infrastructure.Data
             {
                 _logger.LogError(ex, message: ex.Message);
             }
+
+            return _mapper.Map<Domain.Entities.Post>(dbPost);
         }
 
         // Delete
-        public async Task DeletePostAsync(Domain.Entities.Post post)
+        public async Task<bool> DeletePostAsync(int id)
         {
-            var dbPost = _mapper.Map<Models.Post>(post);
-
             try
             {
+                var dbPost = await _context
+                    .Posts
+                    .Where(x => x.Id == id)
+                    .FirstOrDefaultAsync() ?? throw new Exception($"The Post with id {id} was not found");
+               
                 _context.Remove(dbPost);
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, message: ex.Message);
+                return false;
             }
+
+            return true;
         }
 
 

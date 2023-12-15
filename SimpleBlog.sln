@@ -9,9 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{59FC70A0-709
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlog.Domain", "src\SimpleBlog.Domain\SimpleBlog.Domain.csproj", "{EA4CCFA4-7C75-45A0-AD0C-E0139B1282F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.Application", "src\SimpleBlog.Application\SimpleBlog.Application.csproj", "{C809B5E8-59F1-474E-ADC2-58D7627456DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlog.Application", "src\SimpleBlog.Application\SimpleBlog.Application.csproj", "{C809B5E8-59F1-474E-ADC2-58D7627456DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.Infrastructure", "src\SimpleBlog.Infrastructure\SimpleBlog.Infrastructure.csproj", "{971E557A-70ED-4BA1-A217-991319E44B4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlog.Infrastructure", "src\SimpleBlog.Infrastructure\SimpleBlog.Infrastructure.csproj", "{971E557A-70ED-4BA1-A217-991319E44B4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleBlog.IdentityServer", "src\SimpleBlog.IdentityServer\SimpleBlog.IdentityServer.csproj", "{9B5DC555-BB48-444A-8A21-0C88E060AE18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{971E557A-70ED-4BA1-A217-991319E44B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{971E557A-70ED-4BA1-A217-991319E44B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{971E557A-70ED-4BA1-A217-991319E44B4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5DC555-BB48-444A-8A21-0C88E060AE18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5DC555-BB48-444A-8A21-0C88E060AE18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5DC555-BB48-444A-8A21-0C88E060AE18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5DC555-BB48-444A-8A21-0C88E060AE18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{EA4CCFA4-7C75-45A0-AD0C-E0139B1282F6} = {59FC70A0-7094-4016-B8B2-DB29010896A2}
 		{C809B5E8-59F1-474E-ADC2-58D7627456DB} = {59FC70A0-7094-4016-B8B2-DB29010896A2}
 		{971E557A-70ED-4BA1-A217-991319E44B4A} = {59FC70A0-7094-4016-B8B2-DB29010896A2}
+		{9B5DC555-BB48-444A-8A21-0C88E060AE18} = {59FC70A0-7094-4016-B8B2-DB29010896A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1155FE5E-F0B6-4EAF-88CC-8A78D453B282}

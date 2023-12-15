@@ -8,12 +8,6 @@ namespace SimpleBlog.Infrastructure.Mappings
         {
             CreateMap<Models.Post, Domain.Entities.Post>()
                 .ReverseMap();
-
-            CreateMap<Models.User, Domain.Entities.User>()
-                .ReverseMap();
-
-            CreateMap<Models.UserRole, Domain.Entities.UserRole>()
-                .ReverseMap();
         }
     }
 }

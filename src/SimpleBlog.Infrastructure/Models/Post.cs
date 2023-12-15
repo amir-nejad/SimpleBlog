@@ -15,6 +15,4 @@ public partial class Post
     public DateTime CreatedDate { get; set; }
 
     public DateTime UpdatedDate { get; set; }
-
-    public virtual User User { get; set; }
 }

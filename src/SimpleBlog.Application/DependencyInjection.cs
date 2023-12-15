@@ -6,6 +6,7 @@ namespace SimpleBlog.Application
     {
         public static void AddApplicationServices(this IServiceCollection services)
         {
+            services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace SimpleBlog.WebApi.Models.Dtos.Responses
 {
     public record UpdatePostResponseDto(
-        PostDto PostDto,
+        PostDto Post = null,
         bool IsSuccess = false,
         string Message = null) : BaseResponseDto(IsSuccess, Message)
     {

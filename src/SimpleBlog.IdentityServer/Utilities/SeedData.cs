@@ -9,11 +9,13 @@ namespace SimpleBlog.IdentityServer.Utilities
         {
             if (!userManager.Users.Any())
             {
-                var user = new ApplicationUser { UserName = "admin", Email = "admin@amir-nejad.com" };
-                await userManager.CreateAsync(user, "admin");
+                var user = new ApplicationUser { UserName = "admin", Email = "admin@amir-nejad.com", EmailConfirmed = true };
+                var result = await userManager.CreateAsync(user, "Admin@123456");
 
-                // Optionally, assign roles to the default user
-                await userManager.AddToRolesAsync(user, new[] { "Administrator" });
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRolesAsync(user, new[] { CustomRoles.Administrator });
+                }
             }
         }
     }

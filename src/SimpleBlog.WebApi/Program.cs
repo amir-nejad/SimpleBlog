@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using SimpleBlog.WebApi.Utilities;
 using SimpleBlog.Application;
 using SimpleBlog.Infrastructure;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace SimpleBlog.WebApi
 {
@@ -26,9 +27,9 @@ namespace SimpleBlog.WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
-            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            builder.Services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(Program).Assembly));
+            //builder.Services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
             builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructureServices(builder.Configuration);

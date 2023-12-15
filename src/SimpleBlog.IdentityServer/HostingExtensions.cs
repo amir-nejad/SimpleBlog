@@ -40,14 +40,6 @@ namespace SimpleBlog.IdentityServer
                 .AddInMemoryClients(ClientsConfiguration.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
 
-            var userManager = builder.Services.BuildServiceProvider().GetRequiredService<UserManager<ApplicationUser>>();
-
-            // Seed the default user only in development environment
-            if (builder.Environment.IsDevelopment())
-            {
-                SeedData.SeedDefaultUser(userManager).Wait();
-            }
-
             return builder.Build();
         }
 

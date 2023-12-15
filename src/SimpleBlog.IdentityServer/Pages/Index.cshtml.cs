@@ -10,7 +10,7 @@ namespace SimpleBlog.IdentityServer.Pages
 
         public void OnGet()
         {
-
+            var user = HttpContext.User;
         }
     }
 }

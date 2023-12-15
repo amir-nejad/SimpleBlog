@@ -1,5 +1,8 @@
 using SimpleBlog.IdentityServer;
 using Serilog;
+using Microsoft.AspNetCore.Identity;
+using SimpleBlog.IdentityServer.Models;
+using SimpleBlog.IdentityServer.Utilities;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -19,6 +22,21 @@ try
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
+
+    app.UseCors(options =>
+    {
+        options.WithOrigins("https://localhost:7196");
+        options.AllowCredentials();
+        options.AllowAnyHeader();
+        options.WithMethods("PUT", "GET", "POST", "DELETE");
+    });
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var userManager = (UserManager<ApplicationUser>)scope.ServiceProvider.GetService(typeof(UserManager<ApplicationUser>))!;
+
+        SeedData.SeedDefaultUser(userManager).GetAwaiter().GetResult();
+    }
 
     app.Run();
 }

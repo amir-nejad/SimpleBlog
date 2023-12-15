@@ -33,6 +33,7 @@ public partial class SimpleBlogContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Text).IsUnicode(false);
+            entity.Property(e => e.IsActive);
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(300)

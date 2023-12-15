@@ -10,6 +10,8 @@ namespace SimpleBlog.Domain.Entities
 
         public string Text { get; set; }
 
+        public bool IsActive { get; set; }
+
         public string UserId { get; set; }
 
         public virtual User User { get; set; }

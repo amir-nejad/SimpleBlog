@@ -31,7 +31,7 @@ namespace SimpleBlog.WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{id?}")]
+        [HttpGet("getPost/{id?}")]
         public async Task<GetPostByIdResponseDto> GetPostByIdAsync(int? id)
         {
             GetPostByIdResponseDto response = new();
@@ -50,7 +50,7 @@ namespace SimpleBlog.WebApi.Controllers
             }
 
             // Check if user is an admin
-            string userId = _contextAccessor.HttpContext.User.FindFirstValue("sub");
+            string userId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool isAdmin = false;
             var userRole = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
 
@@ -78,17 +78,17 @@ namespace SimpleBlog.WebApi.Controllers
             return response with
             {
                 IsSuccess = true,
-                Post = new Models.Dtos.PostDto(Id: post.Id, Title: post.Title, Text: post.Text, IsActive: post.IsActive)
+                Post = new PostDto(Id: post.Id, Title: post.Title, Text: post.Text, IsActive: post.IsActive)
             };
         }
 
-        [HttpGet]
+        [HttpGet("getPosts")]
         public async Task<GetPostsResponseDto> GetPostsAsync()
         {
             GetPostsResponseDto response = new();
 
             // Check if user is an admin
-            string userId = _contextAccessor.HttpContext.User.FindFirstValue("sub");
+            string userId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool isAdmin = false;
             var userRole = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
 
@@ -125,7 +125,7 @@ namespace SimpleBlog.WebApi.Controllers
             };
         }
 
-        [HttpPost]
+        [HttpPost("createPost")]
         public async Task<CreatePostResponseDto> CreatePostAsync([FromBody] CreatePostRequestDto createPostRequestDto)
         {
             CreatePostResponseDto response = new();
@@ -134,7 +134,7 @@ namespace SimpleBlog.WebApi.Controllers
             {
                 Title = createPostRequestDto.Title,
                 Text = createPostRequestDto.Text,
-                UserId = _contextAccessor.HttpContext.User.FindFirstValue("sub")
+                UserId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)
             };
 
             post = await _mediator.Send(new CreatePostRequest(post));
@@ -154,12 +154,11 @@ namespace SimpleBlog.WebApi.Controllers
             {
                 IsSuccess = true,
                 Message = "The Post has been created successfully.",
-                Post = new Models.Dtos.PostDto(Id: post.Id, Title: post.Title, Text: post.Text, IsActive: post.IsActive)
+                Post = new PostDto(Id: post.Id, Title: post.Title, Text: post.Text, IsActive: post.IsActive)
             };
         }
 
-        [HttpPut("{id?}")]
-        [Authorize(Policy = ConfigConstants.RequireAdministratorRole)]
+        [HttpPut("disablePost/{id?}")]
         public async Task<UpdatePostResponseDto> DisablePostAsync(int? id)
         {
             UpdatePostResponseDto response = new();
@@ -211,11 +210,9 @@ namespace SimpleBlog.WebApi.Controllers
                 Message = "The Post has been updated successfully.",
                 Post = new Models.Dtos.PostDto(Id: post.Id, Title: post.Title, Text: post.Text, IsActive: post.IsActive)
             };
-
-            return response;
         }
 
-        [HttpPut]
+        [HttpPut("updatePost")]
         public async Task<UpdatePostResponseDto> UpdatePostAsync([FromBody] UpdatePostRequestDto updatePostRequestDto)
         {
             UpdatePostResponseDto response = new();
@@ -236,7 +233,7 @@ namespace SimpleBlog.WebApi.Controllers
             }
 
             // Check if user is an admin
-            string userId = _contextAccessor.HttpContext.User.FindFirstValue("sub");
+            string userId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool isAdmin = false;
             var userRole = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
 
@@ -257,6 +254,7 @@ namespace SimpleBlog.WebApi.Controllers
 
             post.Title = updatePostRequestDto.Title;
             post.Text = updatePostRequestDto.Text;
+            post.IsActive = updatePostRequestDto.IsActive;
             post.UpdatedDate = DateTime.UtcNow;
 
             post = await _mediator.Send(new UpdatePostRequest(post));
@@ -276,11 +274,11 @@ namespace SimpleBlog.WebApi.Controllers
             {
                 IsSuccess = true,
                 Message = "The Post has been updated successfully.",
-                Post = new Models.Dtos.PostDto(Id: post.Id, Title: post.Title, Text: post.Text, IsActive: post.IsActive)
+                Post = new PostDto(Id: post.Id, Title: post.Title, Text: post.Text, IsActive: post.IsActive)
             };
         }
 
-        [HttpDelete]
+        [HttpDelete("deletePost")]
         public async Task<DeletePostResponseDto> DeletePostAsync([FromBody] DeletePostRequestDto deletePostRequestDto)
         {
             DeletePostResponseDto response = new();
@@ -301,7 +299,7 @@ namespace SimpleBlog.WebApi.Controllers
             }
 
             // Check if user is an admin
-            string userId = _contextAccessor.HttpContext.User.FindFirstValue("sub");
+            string userId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool isAdmin = false;
             var userRole = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
 

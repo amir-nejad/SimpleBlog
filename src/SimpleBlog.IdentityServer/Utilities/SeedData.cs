@@ -9,7 +9,7 @@ namespace SimpleBlog.IdentityServer.Utilities
         {
             if (!userManager.Users.Any())
             {
-                var user = new ApplicationUser { UserName = "admin", Email = "admin@amir-nejad.com", EmailConfirmed = true };
+                var user = new ApplicationUser { UserName = "admin@amir-nejad.com", Email = "admin@amir-nejad.com", EmailConfirmed = true };
                 var result = await userManager.CreateAsync(user, "Admin@123456");
 
                 if (result.Succeeded)

@@ -9,7 +9,7 @@ namespace SimpleBlog.Domain.Interfaces
     {
         Task<Post> CreatePostAsync(Post post);
 
-        Task UpdatePostAsync(Post post);
+        Task<bool> UpdatePostAsync(Post post);
 
         Task<bool> DeletePostAsync(int id);
         

@@ -32,14 +32,16 @@ namespace SimpleBlog.IdentityServer.IdentityConfiguration
                 //},
                 new() {
                     ClientId = "webapi",
-                    //ClientSecrets = {new Secret("008AD75B-32C6-4241-BE0F-AA1F5972A2D2".Sha256()) },
                     ClientSecrets = {new Secret("webapi".Sha256()) },
-
+                    ClientUri = "https://localhost:7196",
                     AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = false,
+                    AllowedCorsOrigins = new string[]{ "https://localhost:7196"},
                     AccessTokenType = AccessTokenType.Jwt,
-                    RedirectUris = new List<string>{"https://localhost:7196/swagger/oauth2-redirect.html" },
-                    Claims = new List<ClientClaim>(){ new ClientClaim("role", "Administrator") },
-                    AllowedScopes = { "webApi" }
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = new string[]{"https://localhost:7196/swagger/oauth2-redirect.html" },
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    AllowedScopes = { "webApi", "role" }
                 }
             };
     }

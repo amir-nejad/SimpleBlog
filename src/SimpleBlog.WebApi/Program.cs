@@ -29,8 +29,6 @@ namespace SimpleBlog.WebApi
 
             builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            //builder.Services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
             builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructureServices(builder.Configuration);
 
@@ -76,7 +74,7 @@ namespace SimpleBlog.WebApi
                         TokenUrl = new Uri($"{identityServerUrl}/connect/token"),
                         Scopes = new Dictionary<string, string>
                         {
-                                { "webApi", "Access to Simple Blog API" }
+                            { "webApi", "Access to Simple Blog API" },
                         },
                     }
                 }
@@ -96,6 +94,7 @@ namespace SimpleBlog.WebApi
                         new List<string>
                         {
                             "webApi",
+                            "role"
                         }
                     }
                 });

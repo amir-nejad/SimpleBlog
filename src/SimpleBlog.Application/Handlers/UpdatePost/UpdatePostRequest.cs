@@ -15,8 +15,9 @@ namespace SimpleBlog.Application.Handlers.UpdatePost
 
         public async Task<Post> Handle(UpdatePostRequest request, CancellationToken cancellationToken)
         {
-            await _repository.UpdatePostAsync(request.Post);
-            return request.Post;
+            var isUpdated = await _repository.UpdatePostAsync(request.Post);
+
+            return isUpdated ? request.Post : null;
         }
     }
 }

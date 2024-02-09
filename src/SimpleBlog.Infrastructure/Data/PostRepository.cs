@@ -21,15 +21,25 @@ namespace SimpleBlog.Infrastructure.Data
 
             if (userId is null)
             {
-                dbPosts = await _context.Posts.ToListAsync();
+                dbPosts = await _context
+                    .Posts
+                    .AsNoTracking()
+                    .ToListAsync();
             }
             else
             {
-                dbPosts = await _context.Posts.Where(x => x.UserId == userId).ToListAsync();
+                dbPosts = await _context
+                    .Posts
+                    .Where(x => x.UserId == userId)
+                    .AsNoTracking()
+                    .ToListAsync();
             }
 
 
-            dbPosts.ForEach(x => posts.Add(_mapper.Map<Domain.Entities.Post>(x)));
+            dbPosts
+                .ForEach(x => 
+                    posts
+                        .Add(_mapper.Map<Domain.Entities.Post>(x)));
 
             return posts;
         }
@@ -41,11 +51,19 @@ namespace SimpleBlog.Infrastructure.Data
 
             if (userId is null)
             {
-                dbPost = await _context.Posts.Where(x => x.Id == id).FirstOrDefaultAsync();
+                dbPost = await _context
+                    .Posts
+                    .Where(x => x.Id == id)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
             }
             else
             {
-                dbPost = await _context.Posts.Where(x => x.Id == id && x.UserId == userId).FirstOrDefaultAsync();
+                dbPost = await _context
+                    .Posts
+                    .Where(x => x.Id == id && x.UserId == userId)
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
             }
 
 
@@ -94,7 +112,7 @@ namespace SimpleBlog.Infrastructure.Data
 
 
         // Update
-        public async Task UpdatePostAsync(Domain.Entities.Post post)
+        public async Task<bool> UpdatePostAsync(Domain.Entities.Post post)
         {
             var dbPost = _mapper.Map<Models.Post>(post);
 
@@ -106,7 +124,10 @@ namespace SimpleBlog.Infrastructure.Data
             catch (Exception ex)
             {
                 _logger.LogError(ex, message: ex.Message);
+                return false;
             }
+
+            return true;
         }
     }
 }

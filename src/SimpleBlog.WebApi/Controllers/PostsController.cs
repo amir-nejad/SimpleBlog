@@ -17,7 +17,6 @@ namespace SimpleBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = ConfigConstants.RequireApiScope)]
     public class PostsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -32,6 +31,7 @@ namespace SimpleBlog.WebApi.Controllers
         }
 
         [HttpGet("getPost/{id?}")]
+        [Authorize(Policy = ConfigConstants.RequireApiScope)]
         public async Task<GetPostByIdResponseDto> GetPostByIdAsync(int? id)
         {
             GetPostByIdResponseDto response = new();
@@ -83,6 +83,7 @@ namespace SimpleBlog.WebApi.Controllers
         }
 
         [HttpGet("getPosts")]
+        [Authorize(Policy = ConfigConstants.RequireApiScope)]
         public async Task<GetPostsResponseDto> GetPostsAsync()
         {
             GetPostsResponseDto response = new();
@@ -126,6 +127,7 @@ namespace SimpleBlog.WebApi.Controllers
         }
 
         [HttpPost("createPost")]
+        [Authorize(Policy = ConfigConstants.RequireApiScope)]
         public async Task<CreatePostResponseDto> CreatePostAsync([FromBody] CreatePostRequestDto createPostRequestDto)
         {
             CreatePostResponseDto response = new();
@@ -159,6 +161,7 @@ namespace SimpleBlog.WebApi.Controllers
         }
 
         [HttpPut("disablePost/{id?}")]
+        [Authorize(Policy = ConfigConstants.RequireApiScope)]
         public async Task<UpdatePostResponseDto> DisablePostAsync(int? id)
         {
             UpdatePostResponseDto response = new();
@@ -213,6 +216,7 @@ namespace SimpleBlog.WebApi.Controllers
         }
 
         [HttpPut("updatePost")]
+        [Authorize(Policy = ConfigConstants.RequireApiScope)]
         public async Task<UpdatePostResponseDto> UpdatePostAsync([FromBody] UpdatePostRequestDto updatePostRequestDto)
         {
             UpdatePostResponseDto response = new();
@@ -279,6 +283,7 @@ namespace SimpleBlog.WebApi.Controllers
         }
 
         [HttpDelete("deletePost")]
+        [Authorize(Policy = ConfigConstants.RequireAdministratorRole)]
         public async Task<DeletePostResponseDto> DeletePostAsync([FromBody] DeletePostRequestDto deletePostRequestDto)
         {
             DeletePostResponseDto response = new();

@@ -5,6 +5,7 @@ using SimpleBlog.IdentityServer.Models;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleBlog.IdentityServer.Utilities;
+using SimpleBlog.IdentityServer.Services;
 
 namespace SimpleBlog.IdentityServer
 {
@@ -38,7 +39,8 @@ namespace SimpleBlog.IdentityServer
                 .AddInMemoryIdentityResources(IdentityResourcesConfiguration.IdentityResources)
                 .AddInMemoryApiScopes(ClientsConfiguration.ApiScopes)
                 .AddInMemoryClients(ClientsConfiguration.Clients)
-                .AddAspNetIdentity<ApplicationUser>();
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddProfileService<ProfileService>();
 
             return builder.Build();
         }

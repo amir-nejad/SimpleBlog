@@ -8,7 +8,8 @@ namespace SimpleBlog.IdentityServer.IdentityConfiguration
            new IdentityResource[]
            {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+                new("roles", new[] {"role"})
            };
     }
 }

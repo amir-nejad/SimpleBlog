@@ -6,6 +6,7 @@ using SimpleBlog.WebApi.Utilities;
 using SimpleBlog.Application;
 using SimpleBlog.Infrastructure;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Security.Claims;
 
 namespace SimpleBlog.WebApi
 {
@@ -42,7 +43,8 @@ namespace SimpleBlog.WebApi
 
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
-                        ValidateAudience = false
+                        ValidateAudience = false,
+                        RoleClaimType = "role"
                     };
                 });
 
@@ -56,7 +58,9 @@ namespace SimpleBlog.WebApi
 
                 options.AddPolicy(ConfigConstants.RequireAdministratorRole, policy =>
                 {
-                    policy.RequireRole(CustomRoles.Administrator);
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "webApi");
+                    policy.RequireClaim(ClaimTypes.Role, CustomRoles.Administrator);
                 });
             });
 
@@ -93,8 +97,7 @@ namespace SimpleBlog.WebApi
                         },
                         new List<string>
                         {
-                            "webApi",
-                            "role"
+                            "webApi"
                         }
                     }
                 });
@@ -110,14 +113,6 @@ namespace SimpleBlog.WebApi
             }
 
             app.UseHttpsRedirection();
-
-            //app.UseCors(options =>
-            //{
-            //    options.AllowAnyOrigin();
-            //    options.AllowCredentials();
-            //    options.AllowAnyHeader();
-            //    options.WithMethods("PUT", "GET", "POST", "DELETE");
-            //});
 
             app.UseRouting();
 
